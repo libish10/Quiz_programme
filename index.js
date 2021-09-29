@@ -105,15 +105,62 @@ var question_No = document.getElementById("q_No")
 
 var next_btn = document.querySelector("#next_button");
 
+// var minutes = 01,
+//     seconds = 59;
+// var secondVal = document.getElementById("seconds");
+// var minuteVal = document.getElementById("minutes")
+
+// var start_timing
+
+// function timer() {
+//     if (seconds < 59) {
+//         seconds--;
+//         if (seconds <= 9) {
+//             secondVal.innerHTML = "0" + seconds;
+//         } else {
+//             secondVal.innerHTML = seconds;
+//         }
+//         if (seconds == 0) {
+//             seconds = 59;
+//             minutes--;
+//             minuteVal.innerHTML = minutes;
+//         }
+
+//     } else {
+//         seconds = 59;
+//     }
+// }
+
+var i = 120;
+var progressing = document.getElementById("bar");
+
+function countNumbers() {
+    if (i > 0) {
+        i = i - 1;
+        progressing.value = i;
+    }
+    if (i == 0) {
+        document.getElementById("option1").disabled = true;
+        document.getElementById("option2").disabled = true;
+        document.getElementById("option3").disabled = true;
+        document.getElementById("option4").disabled = true;
+    }
+    setTimeout('countNumbers()', 1200);
+}
+
+
 
 let current_question = 0;
 
 
 window.addEventListener("DOMContentLoaded", function() {
     nextQuestion(current_question);
+    countNumbers();
 })
 
 function nextQuestion(question_opt) {
+
+
     if (question_opt < 15) {
         let items = ques_ans_option[question_opt];
         question_No.textContent = (question_opt + 1)
@@ -131,5 +178,8 @@ function nextQuestion(question_opt) {
 
 next_btn.addEventListener("click", function() {
     current_question++;
+
     nextQuestion(current_question);
+    countNumbers();
+
 })
