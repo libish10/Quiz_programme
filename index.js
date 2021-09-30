@@ -95,14 +95,21 @@ var ques_ans_option = [{
     }
 ];
 
+
+
 var questions = document.getElementById("question");
 var option_A = document.getElementById("opt1");
 var option_B = document.getElementById("opt2");
 var option_C = document.getElementById("opt3");
 var option_D = document.getElementById("opt4");
-var question_No = document.getElementById("q_No")
+var option_A_radio = document.getElementById("option1");
+var option_B_radio = document.getElementById("option2");
+var option_C_radio = document.getElementById("option3");
+var option_D_radio = document.getElementById("option4");
+var question_No = document.getElementById("q_No");
+//var option_name = document.getElementsByName("ch");
 
-
+//document.getElementById("opt4").setAttribute("name","testName")
 var next_btn = document.querySelector("#next_button");
 
 // var minutes = 01,
@@ -110,25 +117,29 @@ var next_btn = document.querySelector("#next_button");
 // var secondVal = document.getElementById("seconds");
 // var minuteVal = document.getElementById("minutes")
 
-// var start_timing
+
 
 // function timer() {
-//     if (seconds < 59) {
-//         seconds--;
-//         if (seconds <= 9) {
-//             secondVal.innerHTML = "0" + seconds;
-//         } else {
-//             secondVal.innerHTML = seconds;
-//         }
+//     if (seconds <= 59) {
+//         seconds -= 1;
 //         if (seconds == 0) {
-//             seconds = 59;
-//             minutes--;
-//             minuteVal.innerHTML = minutes;
-//         }
 
-//     } else {
-//         seconds = 59;
+//             seconds = 59;
+//             minutes = minutes - 1;
+//             if (minutes < 0) {
+//                 minuteVal.innerHTML = "00";
+//             } else {
+//                 minuteVal.innerHTML = "0" + minutes;
+//             }
+
+//         } else if (seconds <= 9) {
+//             secondVal.innerHTML = "0" + seconds
+//         } else {
+//             secondVal.innerHTML = seconds
+//         }
 //     }
+//     setTimeout(timer, 500)
+
 // }
 
 var i = 120;
@@ -140,12 +151,12 @@ function countNumbers() {
         progressing.value = i;
     }
     if (i == 0) {
-        document.getElementById("option1").disabled = true;
-        document.getElementById("option2").disabled = true;
-        document.getElementById("option3").disabled = true;
-        document.getElementById("option4").disabled = true;
+        option_A_radio.disabled = true;
+        option_B_radio.disabled = true;
+        option_C_radio.disabled = true;
+        option_D_radio.disabled = true;
     }
-    setTimeout('countNumbers()', 1200);
+    setTimeout(countNumbers, 1000);
 }
 
 
@@ -156,15 +167,24 @@ let current_question = 0;
 window.addEventListener("DOMContentLoaded", function() {
     nextQuestion(current_question);
     countNumbers();
+    // setTimeout(timer, 500)
+
 })
 
 function nextQuestion(question_opt) {
-
+    // setTimeout(timer, 500)
 
     if (question_opt < 15) {
+
         let items = ques_ans_option[question_opt];
-        question_No.textContent = (question_opt + 1)
+        question_No.textContent = (question_opt + 1);
+        let optionName = "choose_option" + question_No.textContent;
+
         questions.textContent = items.question;
+        option_A_radio.setAttribute("name", optionName);
+        option_B_radio.setAttribute("name", optionName);
+        option_C_radio.setAttribute("name", optionName);
+        option_D_radio.setAttribute("name", optionName);
         option_A.textContent = items.optionA;
         option_B.textContent = items.optionB;
         option_C.textContent = items.optionC;
@@ -177,9 +197,16 @@ function nextQuestion(question_opt) {
 
 
 next_btn.addEventListener("click", function() {
+
     current_question++;
 
     nextQuestion(current_question);
-    countNumbers();
+    option_A_radio.disabled = false;
+    option_B_radio.disabled = false;
+    option_C_radio.disabled = false;
+    option_D_radio.disabled = false;
+    i = 120;
+    // minutes = 01;
+    // seconds = 59;
 
 })
